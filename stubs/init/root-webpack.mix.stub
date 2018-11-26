@@ -1,0 +1,6 @@
+const glob = require('glob');
+
+glob.sync('./{{root}}/*/webpack.mix.js', {
+        'ignore': ['**/node_modules/**']
+    })
+    .forEach(mixFile => { require(mixFile) });

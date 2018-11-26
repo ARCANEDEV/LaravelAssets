@@ -1,0 +1,6 @@
+{
+    "private": true,
+    "name": "@{{root}}/{{name}}",
+    "version": "1.0.0",
+    "main": "src/js/index.js"
+}

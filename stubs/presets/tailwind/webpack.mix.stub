@@ -1,0 +1,19 @@
+const mix = require('laravel-mix');
+let tailwindcss = require('tailwindcss');
+
+/*--------------------------------------------------------------------------
+ | Mix Configuration
+ |--------------------------------------------------------------------------
+ */
+
+mix.setPublicPath('{{public_directory}}');
+
+/*--------------------------------------------------------------------------
+ | Mix Asset Management
+ |--------------------------------------------------------------------------
+ */
+
+mix.js('{{asset_directory}}/js/app.js', 'js/{{name}}.js')
+   .postCss('{{asset_directory}}/css/app.css', 'css/{{name}}.css', [
+        tailwindcss('./{{asset_directory}}/tailwind.js')
+   ]);
