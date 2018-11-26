@@ -28,6 +28,67 @@ This Assets package allows you to structure your assets into multiple workspaces
   3. [Usage](_docs/3-Usage.md)
   4. [Extra](_docs/4-Extra.md)
 
+## Description
+
+This package allows you to generate a structure like this (and it's customizable)
+
+```
+laravel-projet
+  |--app
+  |--assets
+  |  |--laravel (frontoffice with dependencies: bootstrap + jquery + popper.js + vue + axios)
+  |  |--admin (backoffice with dependencies: tailwind + vue + axios)
+  |  |--alert-component (shared vue component)
+  |  ...
+  |--config
+  ...
+```
+
+The `laravel-mix` will generate the **frontoffice** assets `[laravel]` (css/app.css, js/app.js), same as the **backoffice** assets `[admin]` (css/admin.css, js/admin.js).
+
+And both `[laravel]` and `[admin]` has their own `package.json` file (+ their dependencies) and also can *re-use* the shared component `[alert-component]` (for example) as a dependency.
+
+For example:
+
+**assets/laravel/package.json**
+```json
+{
+    "private": true,
+    "name": "@assets/laravel",
+    "version": "1.0.0",
+    "devDependencies": {
+        "axios": "^0.18",
+        "bootstrap": "^4.0.0",
+        "jquery": "^3.2",
+        "laravel-mix": "^2.0",
+        "lodash": "^4.17.5",
+        "popper.js": "^1.12",
+        "vue": "^2.5.17",
+        "@assets/alert-component": "~1.0.0"
+    }
+}
+```
+
+**assets/laravel/js/app.js**
+```js
+//...
+
+@require('@assets/alert-component');
+
+//...
+```
+
+**assets/laravel/sass/app.scss**
+```sass
+//...
+
+@require('~@assets/alert-component/sass/style.scss');
+
+//...
+```
+
+Thank to [Yarn's workspaces feature](https://yarnpkg.com/lang/en/docs/workspaces).
+
 ## Contribution
 
 Any ideas are welcome. Feel free to submit any issues or pull requests, please check the [contribution guidelines](CONTRIBUTING.md).
