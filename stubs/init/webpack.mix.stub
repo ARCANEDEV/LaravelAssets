@@ -1,0 +1,9 @@
+const glob = require('glob');
+const workspaces = require('./package.json').workspaces;
+
+workspaces.forEach(workspace => {
+    glob.sync(`./${workspace}/webpack.mix.js`, {
+        'ignore': ['**/node_modules/**']
+    })
+    .forEach(mixFile => { require(mixFile) });
+});

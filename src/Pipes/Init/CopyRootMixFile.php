@@ -44,7 +44,7 @@ class CopyRootMixFile extends AbstractPipe
      */
     protected function getStub(array $passable)
     {
-        return Stub::make('init/root-webpack.mix.stub')
+        return Stub::make('init/webpack.mix.stub')
                    ->replace('{{root}}', $passable['root-directory']);
     }
 }

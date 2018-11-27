@@ -2,6 +2,7 @@
 
 use Arcanedev\Assets\Helpers\Stub;
 use Closure;
+use Illuminate\Support\Facades\File;
 
 /**
  * Class     CopyYarnRcFile
@@ -24,7 +25,7 @@ class CopyYarnRcFile extends AbstractPipe
      */
     public function handle(array $passable, Closure $next)
     {
-        copy(Stub::path('init/.yarnrc'), base_path('.yarnrc'));
+        File::copy(Stub::path('init/yarnrc.stub'), base_path('.yarnrc'));
 
         return $next($passable);
     }

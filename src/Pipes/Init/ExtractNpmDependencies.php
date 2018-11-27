@@ -1,6 +1,7 @@
 <?php namespace Arcanedev\Assets\Pipes\Init;
 
 use Arcanedev\Assets\Helpers\Stub;
+use Arcanedev\Assets\Helpers\Workspaces;
 use Closure;
 use Illuminate\Support\Facades\File;
 
@@ -52,7 +53,9 @@ class ExtractNpmDependencies extends AbstractPipe
             ksort($new[$key]);
         }
 
-        $old['workspaces'] = [$passable['root-directory'].'/*'];
+        $old['workspaces'] = array_map(function ($directory) {
+            return "{$directory}/*";
+        }, Workspaces::getAllRootDirectories());
 
         $this->saveJson('package.json', $old);
         $this->saveJson($passable['path'].'/package.json', $new);

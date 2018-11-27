@@ -30,7 +30,7 @@ You need also to install [Yarn](https://yarnpkg.com) `version >= 1.0`.
 
 ## Composer
 
-You can install this package via [Composer](http://getcomposer.org/) by running this command: `composer require arcanedev/laravel-assets`.
+You can install this package via [Composer](http://getcomposer.org/) by running this command: `composer require arcanedev/laravel-assets --dev`.
 
 ### Artisan commands
 

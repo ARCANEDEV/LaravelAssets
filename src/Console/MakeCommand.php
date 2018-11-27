@@ -21,7 +21,10 @@ class MakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'assets:make {name} {--P|preset= : Preset for the new asset}';
+    protected $signature = 'assets:make 
+        {name : Name of the asset} 
+        {--W|workspace= : Select a predefined workspace} 
+        {--P|preset= : Preset for the new asset}';
 
     /**
      * The console command description.

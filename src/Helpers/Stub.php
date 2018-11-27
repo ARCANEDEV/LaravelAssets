@@ -1,5 +1,7 @@
 <?php namespace Arcanedev\Assets\Helpers;
 
+use Illuminate\Support\Facades\File;
+
 /**
  * Class     Stub
  *
@@ -14,7 +16,7 @@ class Stub
      */
 
     /** @var  string */
-    protected $raw;
+    protected $content;
 
     /* -----------------------------------------------------------------
      |  Main Methods
@@ -28,7 +30,7 @@ class Stub
      */
     public static function make($file = null)
     {
-        return (new static)->setRaw(
+        return (new static)->setContent(
             static::load($file ?: static::getFilePath())
         );
     }
@@ -46,15 +48,25 @@ class Stub
     }
 
     /**
-     * Set the raw file content.
+     * Get the stub content.
      *
-     * @param  string  $raw
+     * @return string
+     */
+    public function content()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set the stub content.
+     *
+     * @param  string  $content
      *
      * @return static
      */
-    protected function setRaw($raw)
+    protected function setContent($content)
     {
-        $this->raw = $raw;
+        $this->content = $content;
 
         return $this;
     }
@@ -69,26 +81,60 @@ class Stub
      */
     public function replace($search, $replace)
     {
-        return $this->setRaw(
-            str_replace($search, $replace, $this->raw)
+        return $this->setContent(
+            str_replace($search, $replace, $this->content)
         );
     }
 
+    /**
+     * Get the content.
+     *
+     * @param  string  $file
+     *
+     * @return false|string
+     */
     public static function load($file)
     {
-        return file_get_contents(static::path($file));
+        return File::get(static::path($file));
     }
 
+    /**
+     * Save the content.
+     *
+     * @param  string  $path
+     *
+     * @return int
+     */
     public function save($path)
     {
-        file_put_contents($path, $this->raw);
+        return File::put($path, $this->content);
     }
 
+    /**
+     * Prepare the stub path.
+     *
+     * @param  string|null  $file
+     *
+     * @return string
+     */
     public static function path($file = null)
     {
-        $path = dirname(__DIR__, 2).'/stubs';
+        $path = static::getBasePath();
 
-        return is_null($file) ? $path : $path.'/'.trim($file, '/');
+        if ( ! is_null($file))
+            $path = "{$path}/".trim($file, '/');
+
+        return $path;
+    }
+
+    /**
+     * Get the base stubs' path.
+     *
+     * @return string
+     */
+    public static function getBasePath()
+    {
+        return realpath(dirname(__DIR__, 2).'/stubs');
     }
 
     /**
@@ -98,6 +144,6 @@ class Stub
      */
     public function toArray()
     {
-        return json_decode($this->raw, true);
+        return json_decode($this->content, true);
     }
 }
