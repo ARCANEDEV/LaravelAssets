@@ -91,7 +91,7 @@ class Stub
      *
      * @param  string  $file
      *
-     * @return false|string
+     * @return string
      */
     public static function load($file)
     {
