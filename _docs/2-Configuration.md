@@ -15,15 +15,23 @@ use Arcanedev\Assets\Pipes\Presets;
 return [
 
     /* -----------------------------------------------------------------
-     |  Root
+     |  Workspaces
      | -----------------------------------------------------------------
      */
 
-    // The root directory for your assets
-    'root-directory'   => 'assets',
+    'default-workspace' => 'default',
 
-    // Recommended to be a single word like a prefixed npm vendor, eg: @assets/{module}
-    'root-package'     => 'assets',
+    'workspaces' => [
+
+        'default' => [
+            // The root directory for your assets
+            'root-directory' => 'assets',
+
+            // Recommended to be a single word like a prefixed npm vendor, eg: @assets/{module}
+            'root-package'   => 'assets',
+        ],
+
+    ],
 
     // The public directory
     'public-directory' => 'public',

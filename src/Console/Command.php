@@ -1,9 +1,9 @@
 <?php namespace Arcanedev\Assets\Console;
 
 use Arcanedev\Assets\Exceptions\NotInitiatedException;
-use Illuminate\Pipeline\Pipeline;
+use Arcanedev\Assets\Helpers\Workspaces;
 use Illuminate\Console\Command as BaseCommand;
-use Illuminate\Support\Facades\File;
+use Illuminate\Pipeline\Pipeline;
 
 /**
  * Class     Command
@@ -49,11 +49,16 @@ abstract class Command extends BaseCommand
      */
     protected function getPassable()
     {
-        return [
-            'root-directory'   => config('assets.root-directory', 'assets'),
-            'root-package'     => config('assets.root-package', 'assets'),
-            'public-directory' => config('assets.public-directory', 'public'),
-        ];
+        $default   = $this->getSelectedWorkspace();
+        $workspace = Workspaces::get($default);
+
+        return array_merge(
+            $workspace,
+            [
+                'workspace' => $default,
+                'public-directory' => config('assets.public-directory', 'public'),
+            ]
+        );
     }
 
     /**
@@ -61,7 +66,19 @@ abstract class Command extends BaseCommand
      */
     protected function ensureIsInitiated()
     {
-        if ( ! File::isDirectory(config('assets.root-directory')))
+        $default = $this->getSelectedWorkspace();
+
+        if ( ! Workspaces::rootDirectoryExists($default))
             NotInitiatedException::throw();
+    }
+
+    /**
+     * Get the default workspace.
+     *
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    protected function getSelectedWorkspace()
+    {
+        return $this->option('workspace') ?: Workspaces::getDefaultName();
     }
 }

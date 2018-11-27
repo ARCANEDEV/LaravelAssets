@@ -30,5 +30,5 @@ php artisan assets:make
 You can also specify the name and the preset if you want to avoid the console questions:
 
 ```bash
-php artisan assets:make admin --preset=bootstrap
+php artisan assets:make admin --preset bootstrap
 ```

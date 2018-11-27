@@ -20,7 +20,9 @@ class InitCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'assets:init {name=laravel : The assets name folder}';
+    protected $signature = 'assets:init 
+        {name=laravel : The assets name folder}
+        {--W|workspace= : Select a predefined workspace}';
 
     /**
      * The console command description.

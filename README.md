@@ -14,6 +14,8 @@
 
 This Assets package allows you to structure your assets into multiple workspaces (like frontoffice + backoffice + components + packages&hellip;).
 
+**IMPORTANT:** This package is a helper like `php artisan preset` built on top of the [Yarn's workspaces feature](https://yarnpkg.com/lang/en/docs/workspaces).
+
 ## Features
 
   * A very flexible assets management.
@@ -86,8 +88,6 @@ For example:
 
 //...
 ```
-
-Thank to [Yarn's workspaces feature](https://yarnpkg.com/lang/en/docs/workspaces).
 
 ## Contribution
 

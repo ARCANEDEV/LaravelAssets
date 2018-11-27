@@ -28,4 +28,29 @@ abstract class TestCase extends BaseTestCase
             \Arcanedev\Assets\AssetsServiceProvider::class,
         ];
     }
+
+    /* -----------------------------------------------------------------
+     |  Other Methods
+     | -----------------------------------------------------------------
+     */
+
+    /**
+     * Get the root path of this package.
+     *
+     * @return string
+     */
+    protected static function getRootPath()
+    {
+        return dirname(__DIR__);
+    }
+
+    /**
+     * Get the fixtures path.
+     *
+     * @return string
+     */
+    protected static function getFixturesPath()
+    {
+        return realpath(__DIR__.'/fixtures');
+    }
 }
